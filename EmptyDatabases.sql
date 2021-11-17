@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `AdminUsername` varchar(20) NOT NULL,
   `Email` varchar(45) NOT NULL,
-  `Name` varchar(45) NOT NULL,
+  `FirstName` varchar(45) NOT NULL,
+  `LastName` varchar(45) NOT NULL,
   `Password` varchar(45) NOT NULL,
   PRIMARY KEY (`AdminUsername`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
@@ -75,7 +76,8 @@ DROP TABLE IF EXISTS `faculty`;
 CREATE TABLE `faculty` (
   `FacultyUsername` varchar(20) NOT NULL,
   `Email` varchar(45) NOT NULL,
-  `Name` varchar(45) NOT NULL,
+  `FirstName` varchar(45) NOT NULL,
+  `LastName` varchar(45) NOT NULL,
   `Password` varchar(45) NOT NULL,
   PRIMARY KEY (`FacultyUsername`),
   UNIQUE KEY `Email_UNIQUE` (`Email`)
@@ -154,4 +156,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-15 20:59:16
+-- Dump completed on 2021-11-17 16:19:11
