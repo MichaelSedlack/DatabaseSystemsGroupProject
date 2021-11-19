@@ -134,7 +134,7 @@ CREATE TABLE `individual_forms` (
   `Title` varchar(45) NOT NULL,
   `Authors` varchar(45) NOT NULL,
   `Edition` int NOT NULL,
-  `Pubilsher` varchar(45) NOT NULL,
+  `Publisher` varchar(45) NOT NULL,
   `ISBN` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -158,4 +158,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-17 16:50:46
+-- Dump completed on 2021-11-19 15:54:52
