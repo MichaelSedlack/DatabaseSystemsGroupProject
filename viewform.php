@@ -1,4 +1,11 @@
 <?php
+	session_start();
+	
+	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+		header("location: login.php");
+		exit;
+	}
+	
 	include 'db.php';
 	$link = connect();
 ?>
@@ -28,15 +35,18 @@
 		var formidData = [];
 		var semesterData = [];
 		var bookidData = [];
-		
+		i = 0;
 		//populates the semester data array with which semester each FormID is associated with, this is done by having the array pos == FormID
 		<?php
-			$query="SELECT Semester FROM forms_list ORDER BY FormID";
+			$query="SELECT Semester, FormID FROM forms_list WHERE FacultyUsername = '".$_SESSION['username']."' ORDER BY FormID";
 			$formsListResult=mysqli_query($link, $query);
 			while($row=mysqli_fetch_array($formsListResult))
 			{
 		?>
-			semesterData.push("<?php echo $row['Semester'];?>");
+			semesterData[i] = [];
+			semesterData[i].push("<?php echo $row['Semester'];?>");
+			semesterData[i].push("<?php echo $row['FormID'];?>");
+			i++;
 		<?php
 			}
 		?>
@@ -46,7 +56,7 @@
 		
 		
 		<?php
-			$query="SELECT * FROM individual_forms ORDER BY FormID";
+			$query="SELECT * FROM individual_forms WHERE FormID IN (SELECT FormID FROM forms_list WHERE FacultyUsername = '".$_SESSION["username"]."') ORDER BY FormID";
 			$result=mysqli_query($link, $query);
 			while($rows=mysqli_fetch_array($result, MYSQLI_ASSOC))
 			{
@@ -75,12 +85,10 @@
 		}
 		
 		function populateTable(Semester){
+			console.log(Semester);
 			for(var n = 0; n < classData.length; n++)
 			{
-				console.log(Semester);
-				console.log(semesterData[formidData[n]]);
-				console.log(Semester===semesterData[formidData[n]]);
-				if(semesterData[formidData[n]]===Semester)
+				if(formidData[n]===Semester)
 				{
 					var row = table.insertRow(table.rows.length);
 					var classCell = row.insertCell(0);
@@ -155,7 +163,7 @@
 					publisherCell.contentEditable = false;
 					isbnCell.contentEditable = false;
 					editCell.innerHTML = "Edit";
-					window.location.href="/EditBook.inc.php?id="+selectedRow.cells[6].innerHTML+"&class="+selectedRow.cells[0].innerHTML+"&title="+selectedRow.cells[1].innerHTML+"&authors="+selectedRow.cells[2].innerHTML+"&edition="+selectedRow.cells[3].innerHTML+"&publisher="+selectedRow.cells[4].innerHTML+"&isbn="+selectedRow.cells[5].innerHTML;
+					window.location.href="/EditBook.inc.php?id="+selectedRow.cells[6].innerHTML+"&class="+selectedRow.cells[0].innerHTML+"&title="+selectedRow.cells[1].innerHTML+"&authors="+selectedRow.cells[2].innerHTML+"&edition="+selectedRow.cells[3].innerHTML+"&publisher="+selectedRow.cells[4].innerHTML+"&isbn="+selectedRow.cells[5].innerHTML+"&semester="+currentSemester;
 				}
 			}
 			
@@ -164,7 +172,7 @@
 		function deleteRow(selectedRow) {
 			console.log(selectedRow);
 			console.log('delete');
-			window.location.href="/DeleteBook.inc.php?id="+selectedRow.cells[6].innerHTML;
+			window.location.href="/DeleteBook.inc.php?id="+selectedRow.cells[6].innerHTML+"&semester="+currentSemester;
 			//table.deleteRow(selectedRow.rowIndex);
 		}
 		
@@ -203,33 +211,7 @@
 			<h2>View/Edit Form</h2>
 			<h3 style="text-align:right">Log Out</h3>
 			<select id="SemesterSelection">
-				<?php
-					$query="select distinct Semester from forms_list";
-					$formsListResult=mysqli_query($link, $query);
-					while($row=mysqli_fetch_array($formsListResult))
-					{
-				?>
-				<option value=<?php echo $row['Semester']?>><?php echo $row['Semester']?></option>
-				<?php
-					}
-				?>
 			</select>
-			<script>
-				var semesterDropdown = document.getElementById("SemesterSelection");
-				
-				//grabs the first available semester option t display it in the table
-				var selectedPos = semesterDropdown.selectedIndex;
-				var currentSemester = semesterDropdown.options[selectedPos].text;
-				console.log(currentSemester);
-				
-				//updates the table every time that a new selection is chosen from the dropdown menu
-				semesterDropdown.addEventListener('change',function(){
-					var selectedPos = semesterDropdown.selectedIndex;
-					var currentSemester = semesterDropdown.options[selectedPos].text;
-					resetTable();
-					populateTable(currentSemester);
-				});
-			</script>
 			<table align="center" id="table">
 				<tr>
 					<th>Class</th>
@@ -242,19 +224,51 @@
 					<th>Edit</th>
 					<th>Delete</th>
 				</tr>
-				<script>
-					populateTable(currentSemester);
-				</script>
 			</table>
 			<form method="post" name = "form" action="insert.php">
 				<input type="text" placeholder="Class" name="class">
 				<input type="text" placeholder="Title" name="title">
 				<input type="text" placeholder="Authors" name="authors">
-				<input type="text" placeholder="Edition" name="edition">
+				<input type="number" placeholder="Edition" name="edition">
 				<input type="text" placeholder="Publisher" name="publisher">
-				<input type="text" placeholder="ISBN" name="isbn">
+				<input type="number" placeholder="ISBN" name="isbn">
+				<input type="hidden" name="formid" id="formidfield">
 				<input type="submit" value="Submit">
 			</form>
+			
+			<script>
+				var semesterDropdown = document.getElementById("SemesterSelection");
+				//populates the dropdown menu
+				for(i = 0; i < semesterData.length; i++)
+				{
+					var currentOption = document.createElement('option');
+					currentOption.text = semesterData[i][0];
+					currentOption.value = semesterData[i][1];
+					semesterDropdown.add(currentOption);
+				}
+				
+				<?php
+					if(isset($_GET['semester']) && !empty($_GET['semester']))
+					{
+						echo "semesterDropdown.value=".$_GET['semester'];
+					}
+				?>
+					
+				//grabs the first available semester option t display it in the table
+				var selectedPos = semesterDropdown.selectedIndex;
+				var currentSemester = semesterDropdown.options[selectedPos].value;
+				document.getElementById("formidfield").value = currentSemester;
+				populateTable(currentSemester);
+				
+				//updates the table every time that a new selection is chosen from the dropdown menu
+				semesterDropdown.addEventListener('change',function(){
+					var selectedPos = semesterDropdown.selectedIndex;
+					currentSemester = semesterDropdown.options[selectedPos].value;
+					resetTable();
+					populateTable(currentSemester);
+					document.getElementById("formidfield").value = currentSemester;
+				});
+			</script>
 		</dir>
 	</body>
 </html>

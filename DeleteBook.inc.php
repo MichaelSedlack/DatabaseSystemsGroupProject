@@ -10,7 +10,7 @@
 
 	if ($result) {
 		mysqli_close($conn);
-		header("location: ../viewform.php");
+		header("location: ../viewform.php?semester=".$_GET['semester']);
 		exit();
 	} else {
 		echo "Error deleting record";
