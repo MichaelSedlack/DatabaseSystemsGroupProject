@@ -52,13 +52,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["username"] = $username;    
-                            $sql3 = "SELECT Name FROM admin WHERE super=1 AND AdminUsername='$username'";
+                            $sql3 = "SELECT Name FROM admin WHERE super = 1 AND AdminUsername='$username'";
                             if($stmt = mysqli_prepare($link, $sql3)){
                                 if(mysqli_stmt_execute($stmt)){
                                     mysqli_stmt_store_result($stmt);     
                                     if(mysqli_stmt_num_rows($stmt) == 1){ 
-                                        $_SESSION["type"] = 'super'; 
-                                    }else{$_SESSION["type"] = 'admin';}
+                                        $_SESSION["type"] = 'super'; //HERE IS THE VARIABLE FOR SUPER ADMIN
+                                    }else{$_SESSION["type"] = 'admin';}//HERE IS THE VARIABLE FOR ADMINS    //YOU CAN USE THESE ANYWHERE AFTER YOU LOG-IN
                                 }
                             }     
                             
@@ -89,7 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["username"] = $username;                      
-                            $_SESSION["type"] = 'faculty';
+                            $_SESSION["type"] = 'faculty';      //HERE IS THE VARIABLE FOR FACULTY
 
                             // Redirect user to welcome page
                             header("location: welcome.php");
