@@ -35,8 +35,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT Name FROM admin WHERE AdminUsername = '$username' AND Password = '$password'";
-        $sql2 = "SELECT Name FROM faculty WHERE FacultyUsername = '$username' AND Password = '$password'";
+        $sql = "SELECT FirstName FROM admin WHERE AdminUsername = '$username' AND Password = '$password'";
+        $sql2 = "SELECT FirstName FROM faculty WHERE FacultyUsername = '$username' AND Password = '$password'";
 
         if($stmt = mysqli_prepare($link, $sql)){
         
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["username"] = $username;    
-                            $sql3 = "SELECT Name FROM admin WHERE super = 1 AND AdminUsername='$username'";
+                            $sql3 = "SELECT FirstName FROM admin WHERE super = 1 AND AdminUsername='$username'";
                             if($stmt = mysqli_prepare($link, $sql3)){
                                 if(mysqli_stmt_execute($stmt)){
                                     mysqli_stmt_store_result($stmt);     
