@@ -37,6 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT FirstName FROM admin WHERE AdminUsername = '$username' AND Password = '$password'";
         $sql2 = "SELECT FirstName FROM faculty WHERE FacultyUsername = '$username' AND Password = '$password'";
+        $sql4 = "SELECT FirstName FROM admin WHERE AdminUsername = '$username' AND reset = 1"; //needs to reset password
 
         if($stmt = mysqli_prepare($link, $sql)){
         
@@ -45,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_store_result($stmt);
                 
                 // Check if username exists, if yes then verify password
-                if(mysqli_stmt_num_rows($stmt) == 1){   
+                if(mysqli_stmt_num_rows($stmt) == 1){
                             // Username and Password are correct, so start a new session
                             session_start();
                             
@@ -58,12 +59,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     mysqli_stmt_store_result($stmt);     
                                     if(mysqli_stmt_num_rows($stmt) == 1){ 
                                         $_SESSION["type"] = 'super'; //HERE IS THE VARIABLE FOR SUPER ADMIN
-                                    }else{$_SESSION["type"] = 'admin';}//HERE IS THE VARIABLE FOR ADMINS    //YOU CAN USE THESE ANYWHERE AFTER YOU LOG-IN
+                                    }else{
+                                        $_SESSION["type"] = 'admin';//HERE IS THE VARIABLE FOR ADMINS    //YOU CAN USE THESE ANYWHERE AFTER YOU LOG-IN
+                                    }
                                 }
                             }     
                             
-                            // Redirect user to welcome page
-                            header("location: welcome.php");
+                            if($stmt = mysqli_prepare($link, $sql4)){
+                                if(mysqli_stmt_execute($stmt)){
+                                    mysqli_stmt_store_result($stmt);     
+                                    if(mysqli_stmt_num_rows($stmt) == 1){
+                                        header("location: force-reset.php");
+                                    }else{
+                                        // Redirect user to welcome page
+                                        header("location: welcome.php");
+                                    }
+                                }
+                            }     
+                            
                 } else{
                     // Username doesn't exist, display a generic error message
                     $login_err = "Invalid username or password.";

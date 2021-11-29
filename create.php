@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username_err = "Please enter a username.";
      } else{
         // Prepare a select statement
-        $sql = "SELECT FirstName FROM faculty WHERE FacultyUsername = ?";
+        $sql = "SELECT FirstName FROM admin WHERE FacultyUsername = ?";
         
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -79,10 +79,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
          
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssss", $username, randomPassword(), $name, $email);
+            mysqli_stmt_bind_param($stmt, "ssss", $username, $rando, $name, $email);
             
+            $username = trim($_POST["username"]);
+            $rando = randomPassword();
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
+
+                $_SESSION["word"] = $rando;
                 // Redirect to login page
                 header("location: createSucc.php");
             } else{
@@ -129,7 +133,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
+            </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">

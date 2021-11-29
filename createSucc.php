@@ -1,3 +1,7 @@
+<?php
+
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +14,7 @@
 </head>
 <body>
 <h1 class="my-5">Admin Successfully Created!</h1>
+<h1 class="my-5">Password: <b><?php echo htmlspecialchars($_SESSION["word"]);?></b></h1>
     <p>
         <a href="welcome.php" class="btn btn-warning">OK</a>
     </p>
