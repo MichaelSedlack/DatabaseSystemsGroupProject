@@ -225,18 +225,41 @@
 					<th>Delete</th>
 				</tr>
 			</table>
+			
+			<h3>Add New Book</h3>
 			<form method="post" name = "form" action="insert.php">
-				<input type="text" placeholder="Class" name="class">
-				<input type="text" placeholder="Title" name="title">
-				<input type="text" placeholder="Authors" name="authors">
-				<input type="number" placeholder="Edition" name="edition">
-				<input type="text" placeholder="Publisher" name="publisher">
-				<input type="number" placeholder="ISBN" name="isbn">
-				<input type="hidden" name="formid" id="formidfield">
+				<input type="text" placeholder="Class" name="class" required>
+				<input type="text" placeholder="Title" name="title" required>
+				<input type="text" placeholder="Authors" name="authors" required>
+				<input type="number" placeholder="Edition" name="edition" required>
+				<input type="text" placeholder="Publisher" name="publisher" required>
+				<input type="number" placeholder="ISBN" name="isbn" required>
+				<input type="hidden" name="formid" id="formidfield" required>
 				<input type="submit" value="Submit">
 			</form>
 			
+			<h3>Add New Semester</h3>
+			<form method="post" name = "addSemesterForm" action="AddSemester.inc.php">
+				<select id="semester" name="semester">
+					<option value="Fall">Fall</option>
+					<option value="Spring">Spring</option>
+					<option value="Summer">Summer</option>
+				</select>
+				<input type="number" placeholder="Year" name="year" max="3000" min="2021" value="2021">
+				<input type="submit" value="Submit">
+			</form>
+			<br>
+			<button type="button" onclick="resetForm()">Reset Form</button>
 			<script>
+				function resetForm()
+				{
+					if(confirm("Are you sure you want to rest this form? It will delete all the books associated with it and cannot be undone")) 
+					{
+						window.location.href="/ResetForm.inc.php?FormID="+currentSemester;
+					}
+				}
+				
+			
 				var semesterDropdown = document.getElementById("SemesterSelection");
 				//populates the dropdown menu
 				for(i = 0; i < semesterData.length; i++)
@@ -265,8 +288,15 @@
 					var selectedPos = semesterDropdown.selectedIndex;
 					currentSemester = semesterDropdown.options[selectedPos].value;
 					resetTable();
-					populateTable(currentSemester);
-					document.getElementById("formidfield").value = currentSemester;
+					if(currentSemester == 'addSemester')
+					{
+						window.location.href="/AddSemester.inc.php";
+					}
+					else
+					{
+						populateTable(currentSemester);
+						document.getElementById("formidfield").value = currentSemester;
+					}
 				});
 			</script>
 		</dir>
