@@ -248,8 +248,18 @@
 				<input type="number" placeholder="Year" name="year" max="3000" min="2021" value="2021">
 				<input type="submit" value="Submit">
 			</form>
-			
+			<br>
+			<button type="button" onclick="resetForm()">Reset Form</button>
 			<script>
+				function resetForm()
+				{
+					if(confirm("Are you sure you want to rest this form? It will delete all the books associated with it and cannot be undone")) 
+					{
+						window.location.href="/ResetForm.inc.php?FormID="+currentSemester;
+					}
+				}
+				
+			
 				var semesterDropdown = document.getElementById("SemesterSelection");
 				//populates the dropdown menu
 				for(i = 0; i < semesterData.length; i++)
