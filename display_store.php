@@ -1,35 +1,55 @@
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "Bookstore";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM Store";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-    echo "<b>FacultyUsername:</b> ". $row["FacultyUsername"].
-    "<br>". " <b>FormID:</b> ". $row["FormID"].
-    "<br>". "<b>Semester: </b>". $row["Semester"].
-    "<br>". "<b>Class: </b>". $row["Class"].
-    "<br>". "<b>Title: </b>". $row["Title"].
-    "<br>". "<b>Authors: </b>". $row["Authors"].
-    "<br>". "<b>Edition: </b>". $row["Edition"].
-    "<br>". "<b>Publisher: </b>". $row["Publisher"].
-    "<br>". "<b>ISBN: </b>". $row["ISBN"]. "<br><br>";
+<!DOCTYPE html>
+<html>
+<style>
+  body{
+    background-color: whitesmoke;
   }
-} else {
-  echo "0 results";
-}
-$conn->close();
-?>
+  input{
+    width: 40%;
+    height: 5%;
+    border: 1px;
+    border-radius: 05px;
+    padding: 8px;
+  }
+</style>
+<body>
+  <center>
+    <?php
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "Bookstore";
+
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT * FROM Store";
+
+    $result = mysqli_query($conn, $sql);
+    $resultCheck = mysqli_num_rows($result);
+
+    if($resultCheck > 0){
+      echo"<table border = '1'>";
+      echo"<tr><td>{$row['FacultyUsername']}</td></tr";
+
+      while($row = mysqli_fetch_assoc($result)){
+        echo" <tr><td>{$row['FormID']}</td>
+              <td>{$row['Semester']}</td>
+              <td>{$row['Class']}</td>
+              <td>{$row['Title']}</td>
+              <td>{$row['Authors']}</td>
+              <td>{$row['Edition']}</td>
+              <td>{$row['Publisher']}</td>
+              <td>{$row['ISBN']}</td></tr>";
+      }
+    }
+ ?>
+  </center>
+</body>
+</html>
+
