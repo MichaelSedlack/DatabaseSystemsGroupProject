@@ -49,8 +49,6 @@
         <input type='text' name = 'Edition' value='<?php echo $row['Edition'] ?>'/><br>
         <input type='text' name = 'Publisher' value='<?php echo $row['Publisher'] ?>'/><br>
         <input type='text' name = 'ISBN' value='<?php echo $row['ISBN'] ?>'/><br>
-        <input type="submit" name='search' value="Submit Form"><br>
-      </form>
       <?php
 
 
@@ -58,6 +56,13 @@
 
   }
   ?>
+        <input type="submit" name='search' value="Submit Form"><br>
+      </form>
+    
+    <form action="CreateFinal.php">
+      <br>
+      <input type="submit" name='return' value="Return">
+    </form>
 
 </center>
 </body>
