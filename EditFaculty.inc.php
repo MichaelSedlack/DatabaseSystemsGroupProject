@@ -14,7 +14,7 @@
 	echo $query;
 
 	if ($result) {
-		mysqli_close($conn);
+		mysqli_close($link);
 		header("location: ../viewfaculty.php?");
 		exit();
 	} else {
