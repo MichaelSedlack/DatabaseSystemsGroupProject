@@ -53,7 +53,7 @@ if ($conn->connect_error) {
 
 <center>
 
-<h2>Individual Custom Email to Professor</h2>
+<h2>Forgot Password</h2>
 
 <br /><br /><br /><br />
 
@@ -62,28 +62,20 @@ if ($conn->connect_error) {
 
 <b>Email:</b> 
 <br />
-<select name="email">
-<?php
-
-$sql = "SELECT Email FROM admin";
-$result = $conn->query($sql);
-
-while($rows = $result->fetch_assoc()) {
-    $Email = $rows['Email'];
-    echo "<option value='$Email'>$Email</option>";
-}
-
-?>
-</select>
+<input type="text" style="width:240x"; name="email" value="mitchellswise@gmail.com">
 
 <br /><br />
 <b>Subject:</b> 
 <br />
-<input type="text" style="width:240x"; name="subject" value="">
+<input type="text" style="width:240x"; name="subject" value="Forgot Password">
 <br /><br />
 <b>Message:</b> 
 <br />
 <textarea name="msg" style="width:350px; ;height:270px;">
+I forgot my login information.
+
+Username: <--- Fill in
+Email:  <--- Fill in
 </textarea>
 <br />
 <button type="submit" name="sending_email_btn">Send</button>

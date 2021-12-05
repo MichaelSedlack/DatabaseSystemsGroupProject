@@ -18,8 +18,8 @@
 
     $servername = "localhost";
     $username = "root";
-    $password = "root";
-    $dbname = "Bookstore";
+    $password = "password";
+    $dbname = "dbsproject";
 
     // Create connection
     $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -52,4 +52,3 @@
   </center>
 </body>
 </html>
-

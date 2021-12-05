@@ -109,13 +109,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Sign Up</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
+        body{ font: 14px sans-serif; background-color:black; color:white; border: 3px solid gold; width:35%; height:35%; margin-left:33%; margin-top: 6.5%;}
+        .wrapper{ width: 360px; padding: 20px; margin-left:15%;}
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <h2>Sign Up</h2>
+        <h2 style="color:gold;">Sign Up</h2>
         <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">

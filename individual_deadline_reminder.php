@@ -1,26 +1,45 @@
+   <?php
+	session_start();
+	
+	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+		header("location: login.php");
+		exit;
+	}
+	
+	include 'db.php';
+	$link = connect();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <title>Individual Deadline Reminder</title>
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://kit.fontawesome.com/45b7647cee.js" crossorigin="anonymous"></script>
    
   <style>
+
+a:hover {
+  		color: gold !important;
+	}
   	#email_notification_box {
-  		border: 5px solid yellow;
+  		border: 4px solid gold;
   		margin-left:25%;
 		margin-right:25%;
 		padding-top: 25px;
 		padding-bottom: 25px;
 		background-color: white;
 		color: black;
+		margin-top:-84px;
   	}
 	body {
 		background-color:black;
-		color:yellow;
+		color:gold;
 	}
 	#links a{
-  		border: 5px solid yellow;
+  		border: 5px solid gold;
 		padding-left:10px;
 		padding-right:10px;
 		padding-top:10px;
@@ -51,6 +70,20 @@ if ($conn->connect_error) {
 
 ?>
 
+<div id="navbar" style="width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; border-bottom:3px solid white;">
+ <ul style="width:100%; margin-top:12px; margin-left:200px; margin-bottom:12px;">
+    	<li style="display:inline; margin-right:50px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
+<li style="display:inline; margin-right:50px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
+<li style="display:inline; margin-right:50px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
+    	<li style="display:inline; margin-right:50px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
+    	<li style="display:inline; margin-right:50px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
+<li style="display:inline; margin-right:50px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
+	<li style="display:inline; margin-right:50px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
+<li style="display:inline; margin-right:50px;"><a href="broadcast_deadline_reminder.php" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
+	<li style="display:inline; margin-right:50px; position:relative;"><a href="logout.php" class="btn btn-danger" style="color:white !important;">Logout</a></li>
+  </ul>
+
+</div>
 <center>
 
 <h2>Individual Deadline Reminder</h2>
@@ -79,11 +112,11 @@ while($rows = $result->fetch_assoc()) {
 <br /><br />
 <b>Subject:</b> 
 <br />
-<input type="text" style="width:220px"; name="subject" value="Book Ordering Deadline Reminder" readonly="readonly">
+<input type="text" style="width:240px"; name="subject" value="Individual Deadline Reminder" readonly="readonly">
 <br /><br />
 <b>Message:</b> 
 <br />
-<textarea name="msg" style="width:340px; ;height:150px;">
+<textarea name="msg" style="width:400px; ;height:180px;">
 This is an individual reminder to please put in your book order by 01/08/2022.
 
 Sincerely,
@@ -95,11 +128,11 @@ Bookstore Staff
 
 </form>
 </div
-<br /><br />
+
 <div id = "links">
-<h4><a href="index.php">Back</a><h4>
 </div>
 </center>
+<img src="./ucf-l.png" alt="UCF" style=" width:160px; height:160px; display:block; margin-left: 45.85%; position: relitive; margin-top:28px;">
 
 </body>
 </html>

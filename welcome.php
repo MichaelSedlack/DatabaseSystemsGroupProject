@@ -22,9 +22,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
     <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></b>. Welcome to our site.</h1>
     <p>
-        <a href="reset-password.php" class="btn btn-warning">Admin Password Change</a>
+        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
         <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-        <a href="create.php" class="btn btn-info">Create New Admin</a>
     </p>
 </body>
 </html>

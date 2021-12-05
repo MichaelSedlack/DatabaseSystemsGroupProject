@@ -17,11 +17,11 @@
     <?php
     $servername = "localhost";
     $username = "root";
-    $password = "root";
+    $password = "password";
 
     // Create connection
     $conn = mysqli_connect($servername, $username, $password);
-    $db = mysqli_select_db($conn, 'Bookstore');
+    $db = mysqli_select_db($conn, 'dbsproject');
 
     $name = $_POST['Username'];
     $id = $_POST['FormID'];

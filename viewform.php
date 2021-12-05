@@ -17,7 +17,23 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/45b7647cee.js" crossorigin="anonymous"></script>
+
+
+	<style>
+
+	body {background-color:black; margin-top:50px;}
+
+	.flex-container{z-index:1; background-color:white; border: 4px solid gold;}
+	
+	a:hover {
+  		color: gold !important;
+	}
+
+  	</style>
+
 	</head>
 	<title>
 		View/Edit Forms
@@ -207,38 +223,61 @@
 		}
 	</script>
 	<body>
-		<dir class=flex-container style="border-style: solid; border-color:gray; width: 60%; text-align: center; margin: auto; padding: 2%;">
-			<h2>View/Edit Form</h2>
-			<h3 style="text-align:right">Log Out</h3>
-			<select id="SemesterSelection">
+
+
+	
+<dir class=flex-container style="width: 80%; text-align: center; margin-top:100px; padding:0px; padding-bottom:20px; margin:auto;">
+
+<div id="navbar" style="width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; ">
+ <ul style="width:100%;">
+    	<li style="display:inline; margin-right:30px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
+<li style="display:inline; margin-right:30px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
+<li style="display:inline; margin-right:30px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
+    	<li style="display:inline; margin-right:30px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
+ 	<li style="display:inline; margin-right:30px;"><a href="display_store.php" style="color:white; text-decoration: underline;">Display Store</a></li>
+	<li style="display:inline; margin-right:30px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
+	<li style="display:inline; margin-right:30px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
+
+	<li style="display:inline; margin-right:30px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
+    	<li style="display:inline; margin-right:30px;"><a href="broadcast_deadline_reminder.php" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
+
+	<li style="display:inline; right:-61px; position:relative;"><a href="logout.php" class="btn btn-danger" style="border-radius:0; color:white !important;">Logout</a></li>
+  </ul>
+
+</div>
+
+
+<h2 style="margin-bottom: 16px;">View/Edit Form</h2>
+			<select id="SemesterSelection" style="margin-bottom:16px;">
 			</select>
-			<table align="center" id="table">
-				<tr>
-					<th>Class</th>
-					<th>Title</th>
-					<th>Authors</th>
-					<th>Edition</th>
-					<th>Publisher</th>
-					<th>ISBN</th>
-					<th>BookID</th>
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
+<table id="table" style="width:80.3%; margin-left:150px; margin-top: 25px;">
+				<tr style="border-bottom:1px solid black;">
+					<th><h6 style="margin-top:-20px;">Class</h6></th>
+					<th><h6 style="margin-top:-20px;">Title</h6></th>
+					<th><h6 style="margin-top:-20px;">Authors</h6></th>
+					<th><h6 style="margin-top:-20px;">Edition</h6></th>
+					<th><h6 style="margin-top:-20px;">Publisher</h6></th>
+					<th><h6 style="margin-top:-20px;">ISBN</h6></th>
+					</tr>
 			</table>
+
+			<h3 style="margin-top:16px; margin-bottom:16px;">Add New Book</h3>
 			
-			<h3>Add New Book</h3>
+
+
+			
 			<form method="post" name = "form" action="insert.php">
-				<input type="text" placeholder="Class" name="class" required>
-				<input type="text" placeholder="Title" name="title" required>
-				<input type="text" placeholder="Authors" name="authors" required>
-				<input type="number" placeholder="Edition" name="edition" required>
-				<input type="text" placeholder="Publisher" name="publisher" required>
-				<input type="number" placeholder="ISBN" name="isbn" required>
-				<input type="hidden" name="formid" id="formidfield" required>
+				<input type="text" placeholder="Class" name="class">
+				<input type="text" placeholder="Title" name="title">
+				<input type="text" placeholder="Authors" name="authors">
+				<input type="number" placeholder="Edition" name="edition">
+				<input type="text" placeholder="Publisher" name="publisher">
+				<input type="number" placeholder="ISBN" name="isbn">
+				<input type="hidden" name="formid" id="formidfield">
 				<input type="submit" value="Submit">
 			</form>
 			
-			<h3>Add New Semester</h3>
+			<h3 style="margin-top: 16px; margin-bottom:16px;">Add New Semester</h3>
 			<form method="post" name = "addSemesterForm" action="AddSemester.inc.php">
 				<select id="semester" name="semester">
 					<option value="Fall">Fall</option>
@@ -300,6 +339,7 @@
 				});
 			</script>
 		</dir>
+<img src="./ucf-l.png" alt="UCF" style=" width:160px; height:160px; display:block; margin-left: 46%; position: relitive; margin-top:50px;">
 	</body>
 </html>
 	

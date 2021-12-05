@@ -1,26 +1,44 @@
+   <?php
+	session_start();
+	
+	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+		header("location: login.php");
+		exit;
+	}
+	
+	include 'db.php';
+	$link = connect();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <title>Forgot Account Info Resolution</title>
-   
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://kit.fontawesome.com/45b7647cee.js" crossorigin="anonymous"></script>
   <style>
   	#email_notification_box {
-  		border: 5px solid yellow;
+  		border: 4px solid gold;
   		margin-left:25%;
 		margin-right:25%;
 		padding-top: 25px;
 		padding-bottom: 25px;
 		background-color: white;
 		color: black;
+margin-top:-84px;
   	}
+
+a:hover {
+  		color: gold !important;
+	}
 	body {
 		background-color:black;
-		color:yellow;
+		color:gold;
 	}
 	#links a{
-  		border: 5px solid yellow;
+  		border: 5px solid gold;
 		padding-left:10px;
 		padding-right:10px;
 		padding-top:10px;
@@ -50,10 +68,23 @@ if ($conn->connect_error) {
 }
 
 ?>
+<div id="navbar" style="width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; border-bottom:3px solid white;">
+ <ul style="width:100%; margin-top:12px; margin-left:200px; margin-bottom:12px;">
+    	<li style="display:inline; margin-right:50px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
+<li style="display:inline; margin-right:50px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
+<li style="display:inline; margin-right:50px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
+    	<li style="display:inline; margin-right:50px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
+    	<li style="display:inline; margin-right:50px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
+<li style="display:inline; margin-right:50px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
+	<li style="display:inline; margin-right:50px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
+<li style="display:inline; margin-right:50px;"><a href="broadcast_deadline_reminder.php" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
+	<li style="display:inline; margin-right:50px; position:relative;"><a href="logout.php" class="btn btn-danger" style="color:white !important;">Logout</a></li>
+  </ul>
 
+</div>
 <center>
 
-<h2>Forgot Account Info Resolution</h2>
+<h2>Account Resolution</h2>
 
 <br /><br /><br /><br />
 
@@ -81,11 +112,11 @@ while($rows = $result->fetch_assoc()) {
 <br /><br />
 <b>Subject:</b> 
 <br />
-<input type="text" style="width:240x"; name="subject" value="Forgot Login Info Resolution" readonly="readonly">
+<input type="text" style="width:240x"; name="subject" value="Account Resolution" readonly="readonly">
 <br /><br />
 <b>Message:</b> 
 <br />
-<textarea name="msg" style="width:350px; ;height:270px;">
+<textarea name="msg" style="width:540px; ;height:270px;">
 I am sorry to hear that you forgot your login info.
 
 We have made you a new Username and Password, so that you can log back into the Bookstore.
@@ -104,11 +135,10 @@ Bookstore Staff
 
 </form>
 </div
-<br /><br />
+
 <div id = "links">
-<h4><a href="index.php">Back</a><h4>
 </div>
 </center>
-
+<img src="./ucf-l.png" alt="UCF" style=" width:160px; height:160px; display:block; margin-left: 45.85%; position: relitive; margin-top:28px;">
 </body>
 </html>

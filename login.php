@@ -4,9 +4,15 @@ session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
+
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && ($_SESSION["type"] === "super" || $_SESSION["type"] === "admin") ){
+header("location: viewfaculty.php");
     exit;
 }
+header("location: viewform.php");
+}
+
+
  
 // Include config file
 require_once "config.php";
@@ -72,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                         header("location: force-reset.php");
                                     }else{
                                         // Redirect user to welcome page
-                                        header("location: welcome.php");
+                                        header("location: viewfaculty.php");
                                     }
                                 }
                             }     
@@ -105,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["type"] = 'faculty';      //HERE IS THE VARIABLE FOR FACULTY
 
                             // Redirect user to welcome page
-                            header("location: welcome.php");
+                            header("location: viewfaculty.php");
                 } else{
                     // Username doesn't exist, display a generic error message
                     $login_err = "Invalid username or password.";
@@ -161,6 +167,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
             <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+	    <a href="individual_custom.php">Forgot Password</a>
         </form>
     </div>
 </body>

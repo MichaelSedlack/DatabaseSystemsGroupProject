@@ -18,11 +18,11 @@
   <?php
   $servername = "localhost";
   $username = "root";
-  $password = "root";
+  $password = "password";
 
   // Create connection
   $conn = mysqli_connect($servername, $username, $password);
-  $db = mysqli_select_db($conn, 'Bookstore');
+  $db = mysqli_select_db($conn, 'dbsproject');
   if(isset($_POST['search'])){
 
     $name = $_POST['Username'];
@@ -32,7 +32,7 @@
             forms_list.Semester, individual_forms.FormID,
             individual_forms.Class, individual_forms.Title,
             individual_forms.Authors, individual_forms.Edition,
-            individual_forms.Pubilsher, individual_forms.ISBN
+            individual_forms.Publisher, individual_forms.ISBN
             FROM forms_list, individual_forms
             WHERE forms_list.FacultyUsername = '$name' AND forms_list.Semester = '$sem'
             AND forms_list.FormID = individual_forms.FormID ";
@@ -43,6 +43,8 @@
       ?>
       <form action="send-form.php" method='post'>
         <input type='text' name = 'FormID' value='<?php echo $row['FormID'] ?>'/><br>
+	<input type='text' name = 'Username' value='<?php echo $row['FacultyUsername'] ?>'/><br>
+	<input type='text' name = 'Semester' value='<?php echo $row['Semester'] ?>'/><br>
         <input type='text' name = 'Class' value='<?php echo $row['Class'] ?>'/><br>
         <input type='text' name = 'Title' value='<?php echo $row['Title'] ?>'/><br>
         <input type='text' name = 'Authors' value='<?php echo $row['Authors'] ?>'/><br>
