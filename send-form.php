@@ -15,13 +15,10 @@
 <body>
   <center>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "password";
+    include 'db.php';
 
     // Create connection
-    $conn = mysqli_connect($servername, $username, $password);
-    $db = mysqli_select_db($conn, 'dbsproject');
+    $conn = connect();
 
     $name = $_POST['Username'];
     $id = $_POST['FormID'];

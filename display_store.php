@@ -16,17 +16,8 @@
   <center>
     <?php
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "password";
-    $dbname = "dbsproject";
-
-    // Create connection
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
+    include 'db.php';
+	$conn = connect();
 
     $sql = "SELECT * FROM Store";
 

@@ -16,13 +16,11 @@
   <center>
     <h1>Create Final List</h1>
   <?php
-  $servername = "localhost";
-  $username = "root";
-  $password = "password";
-
+  
   // Create connection
-  $conn = mysqli_connect($servername, $username, $password);
-  $db = mysqli_select_db($conn, 'dbsproject');
+  include 'db.php';
+  $conn = connect();
+  
   if(isset($_POST['search'])){
 
     $name = $_POST['Username'];
@@ -43,8 +41,8 @@
       ?>
       <form action="send-form.php" method='post'>
         <input type='text' name = 'FormID' value='<?php echo $row['FormID'] ?>'/><br>
-	<input type='text' name = 'Username' value='<?php echo $row['FacultyUsername'] ?>'/><br>
-	<input type='text' name = 'Semester' value='<?php echo $row['Semester'] ?>'/><br>
+		<input type='text' name = 'Username' value='<?php echo $row['FacultyUsername'] ?>'/><br>
+		<input type='text' name = 'Semester' value='<?php echo $row['Semester'] ?>'/><br>
         <input type='text' name = 'Class' value='<?php echo $row['Class'] ?>'/><br>
         <input type='text' name = 'Title' value='<?php echo $row['Title'] ?>'/><br>
         <input type='text' name = 'Authors' value='<?php echo $row['Authors'] ?>'/><br>
@@ -52,8 +50,6 @@
         <input type='text' name = 'Publisher' value='<?php echo $row['Publisher'] ?>'/><br>
         <input type='text' name = 'ISBN' value='<?php echo $row['ISBN'] ?>'/><br>
       <?php
-
-
     }
 
   }

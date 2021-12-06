@@ -15,15 +15,12 @@
 <body>
   <center>
     <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "root";
+    include 'db.php';
 
     $delete = $_POST['name'];
 
     // Create connection
-    $conn = mysqli_connect($servername, $username, $password);
-    $db = mysqli_select_db($conn, 'Bookstore');
+    $conn = connect();
 
     $sql = "DELETE FROM admin WHERE AdminUsername = '$delete'";
 
@@ -46,12 +43,6 @@
       </tr>
 
       <?php
-      $servername = "localhost";
-      $username = "root";
-      $password = "root";
-      $conn = mysqli_connect($servername, $username, $password);
-      $db = mysqli_select_db($conn, 'Bookstore');
-
       $sql = "SELECT * FROM admin";
       $result = $conn->query($sql);
       if($result->num_rows > 0)
