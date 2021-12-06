@@ -17,7 +17,7 @@
     <?php
     include 'db.php';
 
-    $delete = $_POST['name'];
+    $delete = $_POST['admin'];
 
     // Create connection
     $conn = connect();
