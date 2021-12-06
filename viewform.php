@@ -131,6 +131,7 @@
 					isbnCell.contentEditable = false;
 					bookidCell.innerHTML = bookidData[n];
 					bookidCell.contentEditable
+					bookidCell.style.display = 'none';
 					editCell.innerHTML = 'Edit';
 					editCell.className = 'clickableText';
 					editCell.onclick = function(){editRow(this.parentElement);};
