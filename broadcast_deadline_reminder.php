@@ -23,11 +23,14 @@ Sincerely,
 Bookstore Staff
 ';
       mail($email_to,$subject,$message,$headers);
+	  header("location: /".$_GET['page'].".php");
+		exit;
       }
  } else {
  
  $conn->close();
-
+	header("location: /viewfaculty.php");
+	exit;
  }
 
 ?>

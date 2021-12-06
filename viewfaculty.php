@@ -5,6 +5,13 @@
 		header("location: login.php");
 		exit;
 	}
+	$type = $_SESSION['type'];
+	
+	if($type === 'faculty')
+	{
+		header("location: viewform.php");
+		exit;
+	}
 	
 	include 'db.php';
 	$link = connect();
@@ -17,9 +24,9 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/45b7647cee.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/45b7647cee.js" crossorigin="anonymous"></script>
 
 	<style>
 
@@ -177,23 +184,44 @@
 		}
 	</script>
 	<body>
-		<dir class=flex-container style="width: 80%; text-align: center; margin-top:100px; padding:0px; padding-bottom:0px; margin:auto;">
-<div id="navbar" style="width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; ">
- <ul style="width:100%;">
-    	<li style="display:inline; margin-right:50px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
-<li style="display:inline; margin-right:50px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
-<li style="display:inline; margin-right:50px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
-    	<li style="display:inline; margin-right:50px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
-	<li style="display:inline; margin-right:50px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
-	<li style="display:inline; margin-right:50px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
+		<div class=flex-container style="width: 80%; text-align: center; margin-top:100px; padding:0px; padding-bottom:0px; margin:auto;">
+			<div id="navbar" style="display: flex; justify-content: space-between; width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; ">
+				<ul style="width:100%;">
+					<li style="display:inline; margin-right:30px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
+				
+					<li id="viewform" style="display:inline; margin-right:30px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
+					<li id="viewfaculty" style="display:inline; margin-right:30px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
+					<li id="createfinal" style="display:inline; margin-right:30px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
+					<li id="displayStore" style="display:inline; margin-right:30px;"><a href="display_store.php" style="color:white; text-decoration: underline;">Display Store</a></li>
+					<li id="invitation" style="display:inline; margin-right:30px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
+					<li id="forgotLogin" style="display:inline; margin-right:30px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
 
-	<li style="display:inline; margin-right:50px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
-    	<li style="display:inline; margin-right:50px;"><a href="broadcast_deadline_reminder.php" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
+					<li id="individualReminder" style="display:inline; margin-right:30px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
+					<li id="broadcastReminder" style="display:inline; margin-right:30px;"><a href="broadcast_deadline_reminder.php?page=viewfaculty" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
+				</ul>
+				<ul>
+				<li style="display:inline; margin-right: 30px;"><a href="logout.php" class="btn btn-danger" style="border-radius:0; color:white !important;">Logout</a></li>
+					
+				<script>
+					var type = <?php echo json_encode($type) ?>;
+					if(type == "admin" || type == "super")
+					{
+						document.getElementById('viewform').style.display = 'none';
+						document.getElementById('createfinal').style.display = 'none';
+					}
+					else
+					{
+						document.getElementById('viewfaculty').style.display = 'none';
+						document.getElementById('displayStore').style.display = 'none';
+						document.getElementById('invitation').style.display = 'none';
+						document.getElementById('forgotLogin').style.display = 'none';
+						document.getElementById('individualReminder').style.display = 'none';
+						document.getElementById('broadcastReminder').style.display = 'none';
+					}
+				</script>
+				</ul>
 
-	<li style="display:inline; right:-28px; position:relative;"><a href="logout.php" class="btn btn-danger" style="border-radius:0; color:white !important;">Logout</a></li>
-  </ul>
-
-</div>
+			</div>
 			<h2 style="margin-bottom:32px;">Manage Faculty</h2>
 			<table style="width:67.5%; margin-left:250px; margin-top: 25px;"id="table">
 				<tr style="border-bottom:1px solid black;">
