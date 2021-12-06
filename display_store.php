@@ -14,32 +14,61 @@
 </style>
 <body>
   <center>
+    <table border="2">
+      <tr>
+        <td>FacultyUsername</td>
+        <td>Semester</td>
+        <td>FormID</td>
+        <td>Class</td>
+        <td>Title</td>
+        <td>Authors</td>
+        <td>Edition</td>
+        <td>Publisher</td>
+        <td>ISBN</td>
+      </tr>
     <?php
 
-    include 'db.php';
-	$conn = connect();
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "Bookstore";
 
-    $sql = "SELECT * FROM Store";
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT * FROM Store ORDER BY Semester, FacultyUsername";
 
     $result = mysqli_query($conn, $sql);
     $resultCheck = mysqli_num_rows($result);
 
     if($resultCheck > 0){
-      echo"<table border = '1'>";
-      echo"<tr><td>{$row['FacultyUsername']}</td></tr";
 
       while($row = mysqli_fetch_assoc($result)){
-        echo" <tr><td>{$row['FormID']}</td>
-              <td>{$row['Semester']}</td>
-              <td>{$row['Class']}</td>
-              <td>{$row['Title']}</td>
-              <td>{$row['Authors']}</td>
-              <td>{$row['Edition']}</td>
-              <td>{$row['Publisher']}</td>
-              <td>{$row['ISBN']}</td></tr>";
+        ?>
+          <tr>
+            <td><?php echo $row['FacultyUsername']; ?></td>
+            <td><?php echo $row['Semester']; ?></td>
+            <td><?php echo $row['FormID']; ?></td>
+            <td><?php echo $row['Class']; ?></td>
+            <td><?php echo $row['Title']; ?></td>
+            <td><?php echo $row['Authors']; ?></td>
+            <td><?php echo $row['Edition']; ?></td>
+            <td><?php echo $row['Publisher']; ?></td>
+            <td><?php echo $row['ISBN']; ?></td>
+          </tr>
+
+          <?php
+        }
       }
-    }
- ?>
+      else{
+        echo 'No Result';
+      }
+          ?>
+      </table>
   </center>
 </body>
 </html>
