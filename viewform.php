@@ -8,7 +8,7 @@
 	
 	$type = $_SESSION['type'];
 	
-	if($type === 'admin')
+	if($type === 'admin' || $type === 'super')
 	{
 		header("location: viewfaculty.php");
 		exit;
@@ -87,14 +87,14 @@
 			{
 		?>
 		
-		classData.push("<?php echo $rows['Class']; ?>");
-		titleData.push("<?php echo $rows['Title']; ?>");
-		authorsData.push("<?php echo $rows['Authors']; ?>");
-		editionData.push("<?php echo $rows['Edition']; ?>");
-		publisherData.push("<?php echo $rows['Publisher']; ?>");
-		isbnData.push("<?php echo $rows['ISBN']; ?>");
-		formidData.push("<?php echo $rows['FormID'];?>");
-		bookidData.push("<?php echo $rows['BookID'];?>");
+				classData.push("<?php echo $rows['Class']; ?>");
+				titleData.push("<?php echo $rows['Title']; ?>");
+				authorsData.push("<?php echo $rows['Authors']; ?>");
+				editionData.push("<?php echo $rows['Edition']; ?>");
+				publisherData.push("<?php echo $rows['Publisher']; ?>");
+				isbnData.push("<?php echo $rows['ISBN']; ?>");
+				formidData.push("<?php echo $rows['FormID'];?>");
+				bookidData.push("<?php echo $rows['BookID'];?>");
 		<?php
 			};
 		?>
@@ -234,70 +234,62 @@
 	</script>
 	
 	<body>
+		<div class=flex-container style="width: 70%; text-align: center; margin-top:100px; padding:0px; padding-bottom:20px; margin:auto;">
 
+			<div id="navbar" style="display: flex; justify-content: space-between; width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; ">
+				<ul style="width:100%;">
+					<li style="display:inline; margin-right:30px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
+					
+					<li id="viewform" style="display:inline; margin-right:30px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
+					<li id="viewfaculty" style="display:inline; margin-right:30px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
+					<li id="createfinal" style="display:inline; margin-right:30px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
+					<li id="displayStore" style="display:inline; margin-right:30px;"><a href="display_store.php" style="color:white; text-decoration: underline;">Display Store</a></li>
+					<li id="invitation" style="display:inline; margin-right:30px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
+					<li id="forgotLogin" style="display:inline; margin-right:30px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
 
-	
-	<div class=flex-container style="width: 70%; text-align: center; margin-top:100px; padding:0px; padding-bottom:20px; margin:auto;">
+					<li id="individualReminder" style="display:inline; margin-right:30px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
+					<li id="broadcastReminder" style="display:inline; margin-right:30px;"><a href="broadcast_deadline_reminder.php" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
+				</ul>
+				<ul>
+				<li style="display:inline; "><a href="logout.php" class="btn btn-danger" style="border-radius:0; color:white !important;">Logout</a></li>
+					
+					<script>
+					var type = "<?php echo $type ?>";
+					if(type == "admin" || type == "super")
+					{
+						document.getElementById('viewform').style.display = 'none';
+						document.getElementById('createfinal').style.display = 'none';
+					}
+					else
+					{
+						document.getElementById('viewfaculty').style.display = 'none';
+						document.getElementById('displayStore').style.display = 'none';
+						document.getElementById('invitation').style.display = 'none';
+						document.getElementById('forgotLogin').style.display = 'none';
+						document.getElementById('individualReminder').style.display = 'none';
+						document.getElementById('broadcastReminder').style.display = 'none';
+					}
+					</script>
+				</ul>
 
-		<div id="navbar" style="display: flex; justify-content: space-between; width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; ">
-			<ul style="width:100%;">
-				<li style="display:inline; margin-right:30px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
-				
-				<li id="viewform" style="display:inline; margin-right:30px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
-				<li id="viewfaculty" style="display:inline; margin-right:30px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
-				<li id="createfinal" style="display:inline; margin-right:30px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
-				<li id="displayStore" style="display:inline; margin-right:30px;"><a href="display_store.php" style="color:white; text-decoration: underline;">Display Store</a></li>
-				<li id="invitation" style="display:inline; margin-right:30px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
-				<li id="forgotLogin" style="display:inline; margin-right:30px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
+			</div>
 
-				<li id="individualReminder" style="display:inline; margin-right:30px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
-				<li id="broadcastReminder" style="display:inline; margin-right:30px;"><a href="broadcast_deadline_reminder.php" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
-			</ul>
-			<ul>
-			<li style="display:inline; "><a href="logout.php" class="btn btn-danger" style="border-radius:0; color:white !important;">Logout</a></li>
-				
-				<script>
-				var type = "<?php echo $type ?>";
-				if(type == "admin" || type == "super")
-				{
-					document.getElementById('viewform').style.display = 'none';
-					document.getElementById('createfinal').style.display = 'none';
-				}
-				else
-				{
-					document.getElementById('viewfaculty').style.display = 'none';
-					document.getElementById('displayStore').style.display = 'none';
-					document.getElementById('invitation').style.display = 'none';
-					document.getElementById('forgotLogin').style.display = 'none';
-					document.getElementById('individualReminder').style.display = 'none';
-					document.getElementById('broadcastReminder').style.display = 'none';
-				}
-				</script>
-			</ul>
-
-		</div>
-
-
-		<h2 style="margin-bottom: 16px;">View/Edit Form</h2>
-			<select id="SemesterSelection" style="margin-bottom:16px;">
-			</select>
-			<table id="table" style="width:80.3%; margin-left:150px; margin-top: 25px;">
-				<tr style="border-bottom:1px solid black;">
-					<th><h6 style="margin-top:-20px;">Class</h6></th>
-					<th><h6 style="margin-top:-20px;">Title</h6></th>
-					<th><h6 style="margin-top:-20px;">Authors</h6></th>
-					<th><h6 style="margin-top:-20px;">Edition</h6></th>
-					<th><h6 style="margin-top:-20px;">Publisher</h6></th>
-					<th><h6 style="margin-top:-20px;">ISBN</h6></th>
+			<div id="viewformssection">
+				<h2 style="margin-bottom: 16px;">View/Edit Form</h2>
+				<select id="SemesterSelection" style="margin-bottom:16px;">
+				</select>
+				<table id="table" style="width:80.3%; margin-left:150px; margin-top: 25px;">
+					<tr style="border-bottom:1px solid black;">
+						<th><h6 style="margin-top:-20px;">Class</h6></th>
+						<th><h6 style="margin-top:-20px;">Title</h6></th>
+						<th><h6 style="margin-top:-20px;">Authors</h6></th>
+						<th><h6 style="margin-top:-20px;">Edition</h6></th>
+						<th><h6 style="margin-top:-20px;">Publisher</h6></th>
+						<th><h6 style="margin-top:-20px;">ISBN</h6></th>
 					</tr>
-			</table>
-
-			<h3 style="margin-top:16px; margin-bottom:16px;">Add New Book</h3>
-			
-
-
-			
-			<form method="post" name = "form" action="insert.php">
+				</table>
+				
+				<form method="post" name = "form" action="insert.php">
 				<input type="text" placeholder="Class" name="class">
 				<input type="text" placeholder="Title" name="title">
 				<input type="text" placeholder="Authors" name="authors">
@@ -307,30 +299,24 @@
 				<input type="hidden" name="formid" id="formidfield">
 				<input type="submit" value="Submit">
 			</form>
-			
-			<h3 style="margin-top: 16px; margin-bottom:16px;">Add New Semester</h3>
-			<form method="post" name = "addSemesterForm" action="AddSemester.inc.php">
-				<select id="semester" name="semester">
-					<option value="Fall">Fall</option>
-					<option value="Spring">Spring</option>
-					<option value="Summer">Summer</option>
-				</select>
-				<input type="number" placeholder="Year" name="year" max="3000" min="2021" value="2021">
-				<input type="submit" value="Submit">
-			</form>
-			<br>
-			<button type="button" onclick="resetForm()">Reset Form</button>
+				
+				<button type="button" onclick="deleteForm()">Delete Form</button>
+			</div>
+			<div class="createformsection">
+				<button type="button" onclick=window.location.href="/CreateForm.php">Create New Form</button>
+			</div>
 			<script>
-				function resetForm()
+				function deleteForm()
 				{
-					if(confirm("Are you sure you want to rest this form? It will delete all the books associated with it and cannot be undone")) 
+					if(confirm("Are you sure you want to delete this form? It will delete all the books associated with it and cannot be undone")) 
 					{
-						window.location.href="/ResetForm.inc.php?FormID="+currentSemester;
+						window.location.href="/DeleteForm.inc.php?FormID="+currentSemester;
 					}
 				}
 				
 			
 				var semesterDropdown = document.getElementById("SemesterSelection");
+				
 				//populates the dropdown menu
 				for(i = 0; i < semesterData.length; i++)
 				{
@@ -338,6 +324,12 @@
 					currentOption.text = semesterData[i][0];
 					currentOption.value = semesterData[i][1];
 					semesterDropdown.add(currentOption);
+				}
+				
+				//if the semesterdropdown is empty, hides all the contents of view/edit form and replaces with a link to create form
+				if(semesterData.length == 0)
+				{
+					document.getElementById("viewformssection").style.display = 'none';
 				}
 				
 				<?php
@@ -350,7 +342,6 @@
 				//grabs the first available semester option t display it in the table
 				var selectedPos = semesterDropdown.selectedIndex;
 				var currentSemester = semesterDropdown.options[selectedPos].value;
-				document.getElementById("formidfield").value = currentSemester;
 				populateTable(currentSemester);
 				
 				//updates the table every time that a new selection is chosen from the dropdown menu
@@ -365,10 +356,10 @@
 					else
 					{
 						populateTable(currentSemester);
-						document.getElementById("formidfield").value = currentSemester;
 					}
 				});
 			</script>
+			
 		</div>
 	<img src="./ucf-l.png" alt="UCF" style=" width:160px; height:160px; display:block; margin-left: 46%; position: relitive; margin-top:50px;">
 	</body>

@@ -14,7 +14,7 @@
 	}
 	
 	include 'db.php';
-	$link = connect();
+	$conn = connect();
 ?>
 <!DOCTYPE html>
 <html>
