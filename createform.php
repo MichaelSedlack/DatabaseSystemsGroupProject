@@ -17,6 +17,36 @@
 	include 'db.php';
 	$link = connect();
 ?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/45b7647cee.js" crossorigin="anonymous"></script>
+
+
+		<style>
+
+			body {background-color:black; margin-top:50px;}
+
+			.flex-container{z-index:1; background-color:white; border: 4px solid gold;}
+			
+			a:hover {
+				color: gold !important;
+			}
+
+		</style>
+
+	</head>
+	
+	<title>
+		View/Edit Forms
+	</title>
 <script>
 	semesterData = [];
 <?php
@@ -30,8 +60,47 @@
 	}
 ?>
 </script>
+<body>
+<div class=flex-container style="width: 70%; text-align: center; margin-top:100px; padding:0px; padding-bottom:20px; margin:auto;">
+<div id="navbar" style="display: flex; justify-content: space-between; width=100%; height=50px; margin-bottom:16px; background-color:black; color:gold; margin-top:0px;  text-align: left; ">
+				<ul style="width:100%;">
+					<li style="display:inline; margin-right:30px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
+					
+					<li id="viewform" style="display:inline; margin-right:30px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
+					<li id="createform" style="display:inline; margin-right:30px;"><a href="createform.php" style="color:white; text-decoration: underline;">Create Form</a></li>
+					<li id="viewfaculty" style="display:inline; margin-right:30px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
+					<li id="createfinal" style="display:inline; margin-right:30px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
+					<li id="displayStore" style="display:inline; margin-right:30px;"><a href="display_store.php" style="color:white; text-decoration: underline;">Display Store</a></li>
+					<li id="invitation" style="display:inline; margin-right:30px;"><a href="invitation.php" style="color:white; text-decoration: underline;">Account Invite</a></li>
+					<li id="forgotLogin" style="display:inline; margin-right:30px;"><a href="forgot_login_resolution.php" style="color:white; text-decoration: underline;">Account Resolution</a></li>
 
+					<li id="individualReminder" style="display:inline; margin-right:30px;"><a href="individual_deadline_reminder.php" style="color:white; text-decoration: underline;">Individual Reminder</a></li>
+					<li id="broadcastReminder" style="display:inline; margin-right:30px;"><a href="broadcast_deadline_reminder.php" style="color:white; text-decoration: underline;">Broadcast Reminder</a></li>
+				</ul>
+				<ul>
+				<li style="display:inline; "><a href="logout.php" class="btn btn-danger" style="border-radius:0; color:white !important;">Logout</a></li>
+					
+					<script>
+					var type = "<?php echo $type ?>";
+					if(type == "admin" || type == "super")
+					{
+						document.getElementById('viewform').style.display = 'none';
+						document.getElementById('createform').style.display = 'none';
+						document.getElementById('createfinal').style.display = 'none';
+					}
+					else
+					{
+						document.getElementById('viewfaculty').style.display = 'none';
+						document.getElementById('displayStore').style.display = 'none';
+						document.getElementById('invitation').style.display = 'none';
+						document.getElementById('forgotLogin').style.display = 'none';
+						document.getElementById('individualReminder').style.display = 'none';
+						document.getElementById('broadcastReminder').style.display = 'none';
+					}
+					</script>
+				</ul>
 
+			</div>
 <h3 style="margin-top:16px; margin-bottom:16px;">Add Books</h3>
 			
 
@@ -140,3 +209,7 @@
 					div.appendChild(isbnCell);
 				}
 			</script>
+			</div>
+			
+			</body>
+			</html>
