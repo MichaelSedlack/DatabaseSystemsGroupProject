@@ -241,6 +241,7 @@
 					<li style="display:inline; margin-right:30px;"><i class="fas fa-user"></i>     <?php echo htmlspecialchars($_SESSION["username"]);echo htmlspecialchars($_SESSION["type"]); ?></li>
 					
 					<li id="viewform" style="display:inline; margin-right:30px;"><a href="viewform.php" style="color:white; text-decoration: underline;">View/Edit Form</a></li>
+					<li id="createform" style="display:inline; margin-right:30px;"><a href="createform.php" style="color:white; text-decoration: underline;">Create Form</a></li>
 					<li id="viewfaculty" style="display:inline; margin-right:30px;"><a href="viewfaculty.php" style="color:white; text-decoration: underline;">Manage Faculty</a></li>
 					<li id="createfinal" style="display:inline; margin-right:30px;"><a href="createfinal.php" style="color:white; text-decoration: underline;">Final List</a></li>
 					<li id="displayStore" style="display:inline; margin-right:30px;"><a href="display_store.php" style="color:white; text-decoration: underline;">Display Store</a></li>
@@ -258,6 +259,7 @@
 					if(type == "admin" || type == "super")
 					{
 						document.getElementById('viewform').style.display = 'none';
+						document.getElementById('createform').style.display = 'none';
 						document.getElementById('createfinal').style.display = 'none';
 					}
 					else
