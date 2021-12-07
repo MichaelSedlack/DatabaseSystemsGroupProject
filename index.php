@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script>
+window.location.href="/login.php";
+</script>
 <head>
   <meta charset="UTF-8">
   <title>Email</title>
